@@ -1,5 +1,11 @@
 = Hibernate Reviewer = 
 
 you read http://mestachs.wordpress.com/2012/03/24/dont-get-caught-hibernating/
-and know your curious to test your mappings/annotations.
+and know you are curious to test your mappings/annotations.
 Now, you have the tool !
+
+for the moment 2 main features, from 
+ * generate a report of "worst practices" : embbedable as a junit
+ * generate a graphviz graph of your model
+
+current rules : 

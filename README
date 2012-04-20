@@ -9,3 +9,9 @@ for the moment 2 main features, from
  * generate a graphviz graph of your model
 
 current rules : 
+ * AvoidIgnoreNotFoundMappingReviewRule
+ * AvoidJoinMappingReviewRule
+ * AvoidPropertyRefMappingReviewRule
+ * BatchSizeMappingReviewRule
+ * CachingMappingReviewRule
+ * LazyLoadMappingReviewRule

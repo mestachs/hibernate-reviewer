@@ -39,16 +39,14 @@ public class DefaultAttributeFiller implements AttributeFiller {
 	}
 
 	public void fillAttributes(Node node, PersistentClass clazz) {
-
+		node.attr("URL", "../current.html?filter=" + clazz.getClassName());
+		node.attr("tooltip",""+clazz.getClassName());
+		if (StringUtils.isNotEmpty(clazz.getCacheConcurrencyStrategy())) {
+			node.attr(Attribute.SHAPE, Shape.BOX);
+		} else if (clazz.getBatchSize() != -1) {
+			node.attr(Attribute.SHAPE, Shape.OCTAGON);
+		}
 		for (String packageStart : packages) {
-			node.attr("URL", "../current.html?filter=" + clazz.getClassName());
-			node.attr("tooltip",clazz.getClassName());
-			if (StringUtils.isNotEmpty(clazz.getCacheConcurrencyStrategy())) {
-				node.attr(Attribute.SHAPE, Shape.BOX);
-			} else if (clazz.getBatchSize() != -1) {
-				node.attr(Attribute.SHAPE, Shape.OCTAGON);
-			}
-
 			if (clazz.getEntityName().startsWith(packageStart)) {
 				node.attr("style", "filled");
 				node.attr("color", packageColor.get(packageStart));

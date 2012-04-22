@@ -1,11 +1,13 @@
 package com.mestach.hibernate.reviewer.jbpm;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
 import junit.framework.TestCase;
 
 import org.hibernate.cfg.Configuration;
+import org.hibernate.mapping.PersistentClass;
 import org.jbpm.process.audit.NodeInstanceLog;
 import org.jbpm.process.audit.ProcessInstanceLog;
 import org.jbpm.process.audit.VariableInstanceLog;
@@ -76,14 +78,15 @@ public class Jbpm5GraphTest extends TestCase {
 		cfg.addAnnotatedClass(ProcessInstanceLog.class);
 		cfg.addAnnotatedClass(NodeInstanceLog.class);
 		cfg.addAnnotatedClass(VariableInstanceLog.class);
-		
+		cfg.buildMappings();
+		fixBatchSize(cfg);
 		//cfg.addAnnotatedClass(ProcessInstanceInfo)
 		
 		Properties props = new Properties();
 		props.load(this.getClass().getClassLoader()
 				.getResourceAsStream("hibernate.properties"));
 		cfg.setProperties(props);
-		cfg.buildMappings();
+	
 		cfg.buildSessionFactory();
 		HibernateGraphController controller = new HibernateGraphController();
 		controller.setConfiguration(cfg);
@@ -105,5 +108,19 @@ public class Jbpm5GraphTest extends TestCase {
 		MappingReviewReport report = reviewer.reviewAllMappings();
 		System.out.println(report.getItems());
 		System.out.println(report.getStats());
+	}
+
+	private void fixBatchSize(Configuration cfg) {
+		Iterator<PersistentClass> persist = cfg.getClassMappings();
+		while (persist.hasNext()) {
+			PersistentClass persistentClass = persist.next();
+			persistentClass.setBatchSize(50);
+		}
+		
+		Iterator colls = cfg.getCollectionMappings();
+		while (colls.hasNext()) {
+			org.hibernate.mapping.Collection  object = (org.hibernate.mapping.Collection) colls.next();
+			object.setBatchSize(50);
+		}
 	}
 }

@@ -19,3 +19,11 @@ current rules :
  * BatchSizeMappingReviewRule
  * CachingMappingReviewRule
  * LazyLoadMappingReviewRule
+
+samples
+------
+
+ * some basic entity mappings with violations (HibernateTest)
+ * some coming from jbpm 5.2 (Jbpm5GraphTest)
+    * https://github.com/mestachs/hibernate-reviewer/raw/master/hibernate-reviewer/src/sample/resources/generated-graph-batch-size-org.jbpm..png
+    * https://github.com/mestachs/hibernate-reviewer/raw/master/hibernate-reviewer/src/sample/resources/generated-graph-org.jbpm..png
